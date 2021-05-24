@@ -32,4 +32,12 @@ def read_parser():
         required=True
     )
 
+    parser.add_argument(
+        '-o',
+        '--output_dir',
+        help='outout directory',
+        type=str,
+        required=True
+    )
+
     return parser.parse_args()
