@@ -5,18 +5,24 @@ class Practices:
         self.__line = parser.line
         self.__out_dir = parser.output_dir
 
+        # tables columns meaning
+        self.__c_zero_scenario = 4
+        self.__c_params = range(5,9)
+
 
     def run(self):
-        table = self.read_csv()
+        table = self.__read_csv()
 
         for i in range(1,len(table)):
-            (table[i][4]
-            
+            zc = table[i][self.__c_zero_scenario]
+            if not(zc == 'NA'):
+                if int(zc) != 1 :
+                    self.__run_scenario(table[i])
 
+    def __run_scenario(self, tabline):
+        pass 
 
-
-
-    def read_csv(self):
+    def __read_csv(self):
         with open(self.__tsc_path, 'r') as file_:
             lines = file_.readlines()
         
