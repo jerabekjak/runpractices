@@ -20,7 +20,12 @@ class Practices:
                     self.__run_scenario(table[i])
 
     def __run_scenario(self, tabline):
-        pass 
+        print (tabline)
+        for i in self.__c_params:
+            print (i)
+
+#    def __scenaricore(self, tabline):
+#        return(
 
     def __read_csv(self):
         with open(self.__tsc_path, 'r') as file_:
