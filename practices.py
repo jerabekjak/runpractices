@@ -7,8 +7,8 @@ class Practices:
 
         # tables columns meaning
         self.__c_zero_scenario = 4
-        self.__c_params = range(5,9)
-        self.__pars_name = ['','','','','Qr','Qs','a','n','Ks']
+        self.__c_params = range(5,10)
+        self.__pars_name = ['','','','','','Qr','Qs','a','n','Ks']
 
 
     def run(self):
@@ -22,10 +22,11 @@ class Practices:
 
     def __run_scenario(self, tabline):
         for i in self.__c_params:
-            print (self.__scenariocode(self._pars_name[i], tabline))
+            print (self.__scenariocode(self.__pars_name[i], tabline))
 
     def __scenariocode(self, parname, tl):
-        return("{}-{}-{}-{}-{}-{}".format(tl[0],tl[1],tl[2],tl[3],tl[4],parname))
+        return("{}-{}-{}-{}-{}-{}".format(tl[0].strip().zfill(2),
+        tl[1].strip(),tl[2].strip(),tl[3].strip(),tl[4].strip(),parname))
 
     def __read_csv(self):
         with open(self.__tsc_path, 'r') as file_:
