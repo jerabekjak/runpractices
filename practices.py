@@ -1,6 +1,8 @@
 import os
 import shutil
 
+import h1d
+
 class Practices:
     def __init__(self, parser):
         self.__tsc_path = parser.table_scenarios
@@ -13,11 +15,14 @@ class Practices:
         self.__c_params = range(5,10)
         self.__pars_name = ['','','','','','Qr','Qs','a','n','Ks']
 
+        self.__h1d = h1d.H1D()
+
 
     def run(self):
 
         # read table with scenarios
         table = self.__read_csv()
+        self.__h1d.exec(self.__bm_path)
 
         # compute scenarios
         for i in range(1,len(table)):
