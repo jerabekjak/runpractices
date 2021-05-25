@@ -15,7 +15,7 @@ class Practices:
         self.__c_params = range(5,10)
         self.__pars_name = ['','','','','','Qr','Qs','a','n','Ks']
 
-        self.__h1d = h1d.H1D(self.__bm_path)
+        self.__h1d = h1d.H1D(self.__bm_path, self.__line)
 
 
     def run(self):
@@ -35,7 +35,7 @@ class Practices:
         for i in self.__c_params:
             scenariocode = self.__scenariocode(self.__pars_name[i], tabline)
             outdir = self.__make_outdir(scenariocode)
-            self.__h1d.prepare_project(outdir, tabline)
+            self.__h1d.prepare_project(outdir, tabline, i)
 
     def __make_outdir(self, scenarioname):
         outdir = os.path.join(self.__out_dir, scenarioname)
