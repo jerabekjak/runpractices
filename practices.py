@@ -22,7 +22,7 @@ class Practices:
 
         # read table with scenarios
         table = self.__read_csv()
-        # self.__h1d.exec(self.__bm_path)
+        self.__h1d.exec(self.__bm_path)
 
         # compute scenarios
         for i in range(1,len(table)):
@@ -35,7 +35,11 @@ class Practices:
         for i in self.__c_params:
             scenariocode = self.__scenariocode(self.__pars_name[i], tabline)
             outdir = self.__make_outdir(scenariocode)
-            self.__h1d.prepare_project(outdir, tabline, i)
+            ok = self.__h1d.prepare_project(outdir, tabline, i)
+            if (ok) : self.__h1d.exec(outdir)
+            if (not(ok)) : os.rmdir(outdir)
+
+
 
     def __make_outdir(self, scenarioname):
         outdir = os.path.join(self.__out_dir, scenarioname)

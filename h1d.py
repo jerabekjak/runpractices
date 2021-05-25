@@ -16,7 +16,17 @@ class H1D(object):
     def prepare_project(self, project_dir, scenario, ipar):
         """ project dir :: where the config and output files 
         fill be stored
-        scenario :: is on row in the from the scenario csv"""
+        scenario :: is on row in the from the scenario csv
+        ipar :: which parameter in scenario list is to be scaled
+        return T/F :: if parameter is not scalabel false
+        """
+
+
+        i = ipar -5
+        scale = scenario[5:10]
+        # scale = [float(j) for j in scale]
+        if 'NA' in scale[i] : return False
+        scale[i] = float(scale[i])
 
         # duplicate benchmarkproject
         self.__duplicate_project(self.__bm_path, project_dir)
@@ -24,16 +34,12 @@ class H1D(object):
         # read  benchmark parameters
         selector = os.path.join(project_dir, 'SELECTOR.IN')
         with open(selector, 'r') as f_:
-            for i, line in enumerate(f_):
-                if i == self.__line-1 : 
+            for j, line in enumerate(f_):
+                if j == self.__line-1 : 
                     params_orig = line.split()
 
-
-        params_orig = [float(i) for i in params_orig]
+        params_orig = [float(j) for j in params_orig]
         params_new = params_orig.copy()
-        scale = scenario[5:10]
-        scale = [float(i) for i in scale]
-        i = ipar -5
         # for  i in range(len(scale)) :
         params_new[i] = params_orig[i] * scale[i]
 
@@ -46,6 +52,8 @@ class H1D(object):
         lines[self.__line-1] = res
         with open(selector, 'w') as f_:
             f_.writelines(lines)
+
+        return True
             
 
     def __duplicate_project(self, src, dst):
