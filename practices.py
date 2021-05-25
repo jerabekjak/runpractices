@@ -15,8 +15,11 @@ class Practices:
 
 
     def run(self):
+
+        # read table with scenarios
         table = self.__read_csv()
 
+        # compute scenarios
         for i in range(1,len(table)):
             zc = table[i][self.__c_zero_scenario]
             if not(zc == 'NA'):
