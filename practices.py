@@ -1,3 +1,6 @@
+import os
+import shutil
+
 class Practices:
     def __init__(self, parser):
         self.__tsc_path = parser.table_scenarios
@@ -22,7 +25,15 @@ class Practices:
 
     def __run_scenario(self, tabline):
         for i in self.__c_params:
-            print (self.__scenariocode(self.__pars_name[i], tabline))
+            scenariocode = self.__scenariocode(self.__pars_name[i], tabline)
+            outdir = self.__make_outdir(scenariocode)
+
+    def __make_outdir(self, scenarioname):
+        outdir = os.path.join(self.__out_dir, scenarioname)
+        if os.path.exists(outdir):
+            shutil.rmtree(outdir)
+        os.mkdir(outdir)
+        return outdir
 
     def __scenariocode(self, parname, tl):
         return("{}-{}-{}-{}-{}-{}".format(tl[0].strip().zfill(2),
