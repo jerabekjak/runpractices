@@ -17,6 +17,8 @@ class Practices:
 
         self.__h1d = h1d.H1D(self.__bm_path, self.__line)
 
+        self.__curr_project  = '00'
+
 
     def run(self):
 
@@ -29,11 +31,16 @@ class Practices:
             zc = table[i][self.__c_zero_scenario]
             if not(zc == 'NA'):
                 if int(zc) != 1 :
-                    self.__run_scenario(table[i])
+                    if (table[i][0] != self.__curr_project):
+                        counter = 0
+                        self.__curr_project = table[i][0]
+                    else :
+                        counter += 1
+                    self.__run_scenario(table[i], counter)
 
-    def __run_scenario(self, tabline):
+    def __run_scenario(self, tabline, counter):
         for i in self.__c_params:
-            scenariocode = self.__scenariocode(self.__pars_name[i], tabline)
+            scenariocode = self.__scenariocode(self.__pars_name[i], tabline, counter)
             outdir = self.__make_outdir(scenariocode)
             ok = self.__h1d.prepare_project(outdir, tabline, i)
             if (ok) : self.__h1d.exec(outdir)
@@ -48,9 +55,9 @@ class Practices:
         os.mkdir(outdir)
         return outdir
 
-    def __scenariocode(self, parname, tl):
-        return("{}-{}-{}-{}-{}-{}".format(tl[0].strip().zfill(2),
-        tl[1].strip(),tl[2].strip(),tl[3].strip(),tl[4].strip(),parname))
+    def __scenariocode(self, parname, tl, counter):
+        return("{}-{}-{}-{}-{}-{}-{}".format(tl[0].strip().zfill(2),
+        tl[1].strip(),tl[2].strip(),tl[3].strip(),tl[4].strip(),parname, str(counter).zfill(2)))
 
     def __read_csv(self):
         with open(self.__tsc_path, 'r') as file_:
