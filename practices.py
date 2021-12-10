@@ -43,10 +43,17 @@ class Practices:
             scenariocode = self.__scenariocode(self.__pars_name[i], tabline, counter)
             outdir = self.__make_outdir(scenariocode)
             ok = self.__h1d.prepare_project(outdir, tabline, i)
-            if (ok) : self.__h1d.exec(outdir)
+            if (ok) : 
+                self.__h1d.exec(outdir)
+                self.__clear_dir(outdir)
             if (not(ok)) : os.rmdir(outdir)
 
+    def __clear_dir(self, outdir):
+        filelist = [ f for f in os.listdir(outdir) if not('T_Level.out' in f) ]
+        filelist = [ f for f in filelist if not('SELECTOR.IN' in f) ]
 
+        for f in filelist:
+            os.remove(os.path.join(outdir, f))
 
     def __make_outdir(self, scenarioname):
         outdir = os.path.join(self.__out_dir, scenarioname)
