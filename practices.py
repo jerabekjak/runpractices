@@ -24,7 +24,11 @@ class Practices:
 
         # read table with scenarios
         table = self.__read_csv()
+        # run and copy the benchmark model
         self.__h1d.exec(self.__bm_path)
+        projectname = (os.path.basename(self.__bm_path))
+        shutil.copytree(self.__bm_path, 
+                                 os.path.join(self.__out_dir, projectname))
 
         # compute scenarios
         for i in range(1,len(table)):
