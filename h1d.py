@@ -41,7 +41,11 @@ class H1D(object):
         params_orig = [float(j) for j in params_orig]
         params_new = params_orig.copy()
         # for  i in range(len(scale)) :
-        params_new[i] = params_orig[i] * scale[i]
+        if (i == 3) : 
+            params_new[i] = max(1.05,params_orig[i] * scale[i])
+        else :
+            params_new[i] = params_orig[i] * scale[i]
+
 
         s = [str(i) for i in params_new]
         res = "  ".join(s) + '\n'
